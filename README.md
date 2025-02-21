@@ -20,5 +20,3 @@ This React app lets users take quizzes, get feedback, and track their progress. 
 ## Deployed App
 
 [https://interactive-quiz-rho.vercel.app/]()
-
-**Note:** Replace `<repository_url>` with the actual URL of your GitHub repository and add the link to your deployed app in the "Deployed App" section.
