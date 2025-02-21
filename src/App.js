@@ -8,13 +8,14 @@ let db;
 
 // Function to open the database
 function openDB() {
+  // This function opens the IndexedDB database
   const DBOpenRequest = window.indexedDB.open("quizAttempts", 1);
 
   DBOpenRequest.onupgradeneeded = (event) => {
     const db = event.target.result;
     console.log("Database created or upgraded");
 
-    // Create your object stores here
+    // Create object store for quiz attempts
     db.createObjectStore("quizAttempts", {
       keyPath: "id",
       autoIncrement: true,
@@ -54,7 +55,7 @@ function App() {
 
     const newAttempt = {
       timestamp: new Date(),
-      score: result.score, // Make sure to include the score here
+      score: result.score,
       userAnswers: result.userAnswers,
     };
 
@@ -97,7 +98,8 @@ function App() {
   return (
     <div className="app-container">
       <h1>Interactive Quiz</h1>
-      <div className="quiz-and-results"> {/* Added a container for Quiz and Result */}
+      <div className="quiz-and-results">
+        {/* Conditionally render Quiz or Result */}
         {quizResult? (
           <Result
             result={quizResult}

@@ -14,10 +14,11 @@ function Quiz({ onQuizEnd }) {
   // Create a ref to access the input element
   const inputRef = useRef(null);
 
-  // Move currentQuestion declaration here
+  // Get the current question from quizData
   const currentQuestion = quizData[currentQuestionIndex];
 
   useEffect(() => {
+    // This effect handles the timer for each question
     let interval;
     if (!isQuizFinished && timer > 0) {
       interval = setInterval(() => {
@@ -31,12 +32,14 @@ function Quiz({ onQuizEnd }) {
 
   // Focus on the input field when the question changes
   useEffect(() => {
+    // This effect focuses on the input field for integer-type questions
     if (currentQuestion &&!currentQuestion.options && inputRef.current) {
       inputRef.current.focus();
     }
   }, [currentQuestion]);
 
   const handleAnswerSelect = (answer) => {
+    // Update the user's answer for the current question
     setUserAnswers((prevAnswers) => ({
     ...prevAnswers,
       [currentQuestionIndex]: answer,
@@ -44,17 +47,20 @@ function Quiz({ onQuizEnd }) {
   };
 
   const handleIntegerAnswerChange = (event) => {
+    // Update the integer answer when the user types in the input field
     setIntegerAnswer(event.target.value);
   };
 
   // Handle Enter key press
   const handleKeyDown = (event) => {
+    // Submit the answer when the user presses Enter
     if (event.key === "Enter") {
       handleAnswerSubmit();
     }
   };
 
   const handleAnswerSubmit = () => {
+    // This function handles answer submission and feedback
     const correctAnswer = currentQuestion.answer;
 
     // Update userAnswers immediately
@@ -90,6 +96,7 @@ function Quiz({ onQuizEnd }) {
   };
 
   const calculateResult = () => {
+    // Calculate the quiz result
     let correctAnswers = 0;
     let incorrectAnswers = 0;
 
@@ -114,10 +121,12 @@ function Quiz({ onQuizEnd }) {
 
   return (
     <div className="quiz-container">
+      {/* Check if the quiz is finished */}
       {!isQuizFinished? (
         <div>
           <h2 className="question-title">{currentQuestion.question}</h2>
 
+          {/* Conditionally render options or input field based on question type */}
           {currentQuestion.options? (
             <div className="options-container">
               {currentQuestion.options.map((option, index) => (
